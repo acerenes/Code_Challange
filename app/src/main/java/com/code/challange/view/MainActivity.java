@@ -1,5 +1,6 @@
 package com.code.challange.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -8,27 +9,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.code.challange.PixabayApplication;
 import com.code.challange.R;
 import com.code.challange.adapter.PixabayImageListAdapter;
-import com.code.challange.listener.LoadMoreScrollListener;
-import com.code.challange.listener.SearchViewTextListener;
+import com.code.challange.listeners.LoadMoreScrollListener;
+import com.code.challange.listeners.SearchViewTextListener;
 import com.code.challange.models.PixabayImage;
 import com.code.challange.models.PixabayImageList;
-import com.code.challange.services.PixabayImageService;
+import com.code.challange.API.PixaBayApi;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,16 +51,25 @@ public class MainActivity extends AppCompatActivity {
     private final Context mainContext = this;
     private static MainActivity instance;
 
+    //injecting retrofit
+    @Inject
+    Retrofit retrofit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         instance = this;
+        injectDagger();
         initView();
         setSupportActionBar(toolbar);
         initRecyclerView();
         loadMoreProgressBar.start();
         loadImages(1,searchedQuery);
+    }
+
+    private void injectDagger() {
+        ((PixabayApplication) getApplication()).getNetComponent().inject(this);
     }
 
     @Override
@@ -109,11 +124,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImages(int page, String searchedQuery){
-        PixabayImageService.createService(mainContext).getImageResults(getString(R.string.API_KEY), searchedQuery, page, 24).enqueue(new Callback<PixabayImageList>() {
+        PixaBayApi pixaBayApi = retrofit.create(PixaBayApi.class);
+
+        pixaBayApi.getImageResults(getString(R.string.API_KEY), searchedQuery, page, 24).enqueue(new Callback<PixabayImageList>() {
             @Override
             public void onResponse(Call<PixabayImageList> call, Response<PixabayImageList> response) {
                 if (response.isSuccessful())
-                    addImagesToList(response.body());
+                    if (response.body() != null) {
+                        addImagesToList(response.body());
+                    }
                 else
                     loadMoreProgressBar.stop();
             }

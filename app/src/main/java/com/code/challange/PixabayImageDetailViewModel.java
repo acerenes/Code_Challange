@@ -4,9 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+
 import androidx.databinding.BaseObservable;
-import com.code.challange.view.DetailActivity;
+
 import com.code.challange.models.PixabayImage;
+import com.code.challange.view.DetailActivity;
 import com.google.gson.Gson;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -51,15 +53,15 @@ public class PixabayImageDetailViewModel extends BaseObservable {
     private void startActivity(View v) {
         Intent i = new Intent(v.getContext(), DetailActivity.class);
         String serialized = new Gson().toJson(pixabayImage);
-        i.putExtra("IMAGE", serialized);
+        i.putExtra(context.getString(R.string.image_intent), serialized);
         v.getContext().startActivity(i);
     }
 
     private void createDialogBox(View v) {
         new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Are you sure?")
-                .setConfirmText("Yes,show details!")
-                .setCancelText("No, go back!")
+                .setTitleText(context.getString(R.string.sure_dialog))
+                .setConfirmText(context.getString(R.string.yes_dialog))
+                .setCancelText(context.getString(R.string.no_dialog))
                 .setConfirmClickListener(sDialog -> {
                     sDialog.dismiss();
                     startActivity(v);

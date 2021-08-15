@@ -6,7 +6,6 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
-import com.code.challange.R;
 import com.code.challange.models.PixabayImage;
 
 import java.util.Locale;

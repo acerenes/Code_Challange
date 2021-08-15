@@ -6,4 +6,8 @@
     <string name="connection_error">Connection Problem !! Please Try Again..</string>
     <string name="search">search..</string>
     <string name="pixabay_url">https://pixabay.com/</string>
+    <string name="image_intent">IMAGE</string>
+    <string name="yes_dialog">Yes,show details!</string>
+    <string name="sure_dialog">Are you sure?</string>
+    <string name="no_dialog">No, go back!</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.code.challange.services;
+package com.code.challange.API;
 
 import com.code.challange.models.PixabayImageList;
 

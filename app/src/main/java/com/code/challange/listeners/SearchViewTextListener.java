@@ -1,4 +1,4 @@
-package com.code.challange.listener;
+package com.code.challange.listeners;
 
 import androidx.appcompat.widget.SearchView;
 import com.code.challange.view.MainActivity;

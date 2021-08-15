@@ -30,6 +30,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initImage() {
-        image = new Gson().fromJson(getIntent().getStringExtra("IMAGE"), PixabayImage.class);
+        image = new Gson().fromJson(getIntent().getStringExtra(getString(R.string.image_intent)), PixabayImage.class);
     }
 }
