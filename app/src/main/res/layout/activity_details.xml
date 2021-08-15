@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="viewmodel"
-            type="com.code.challange.viewmodel.PixabayImageDetailViewModel"/>
+            name="viewmodel_detail"
+            type="com.code.challange.PixabayImageDetailViewModel"/>
     </data>
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:imageUrl="@{viewmodel.highResImageUrl}" />
+            app:imageUrl="@{viewmodel_detail.highResImageUrl}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:text="@{viewmodel.userName}"
+                android:text="@{viewmodel_detail.userName}"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewmodel.tags}"
+                    android:text="@{viewmodel_detail.tags}"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                     android:layout_below="@id/activity_detail_tags"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="10dp"
-                    android:text="@{viewmodel.comments}"
+                    android:text="@{viewmodel_detail.comments}"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -101,7 +101,7 @@
                     android:layout_below="@id/activity_detail_comments"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="13dp"
-                    android:text="@{viewmodel.favorites}"
+                    android:text="@{viewmodel_detail.favorites}"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
                     android:layout_below="@id/activity_detail_favorites"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="13dp"
-                    android:text="@{viewmodel.likes}"
+                    android:text="@{viewmodel_detail.likes}"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </RelativeLayout>

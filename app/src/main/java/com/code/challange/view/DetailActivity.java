@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.code.challange.R;
 import com.code.challange.databinding.ActivityDetailsBinding;
 import com.code.challange.models.PixabayImage;
-import com.code.challange.viewmodel.PixabayImageDetailViewModel;
+import com.code.challange.PixabayImageDetailViewModel;
 import com.google.gson.Gson;
 
 public class DetailActivity extends AppCompatActivity {
@@ -26,7 +26,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setViewModel() {
-        activityDetailsBinding.setViewmodel(new PixabayImageDetailViewModel(image, DetailActivity.this));
+        activityDetailsBinding.setViewmodelDetail(new PixabayImageDetailViewModel(image, DetailActivity.this));
     }
 
     private void initImage() {

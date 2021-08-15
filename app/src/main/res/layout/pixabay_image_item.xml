@@ -7,11 +7,11 @@
 
         <variable
             name="viewmodel_main"
-            type="com.code.challange.viewmodel.PixabayImageMainViewModel"/>
+            type="com.code.challange.PixabayImageMainViewModel"/>
 
         <variable
             name="viewmodel_detail"
-            type="com.code.challange.viewmodel.PixabayImageDetailViewModel"/>
+            type="com.code.challange.PixabayImageDetailViewModel"/>
 
     </data>
 

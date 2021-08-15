@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.code.challange.R;
 import com.code.challange.databinding.PixabayImageItemBinding;
 import com.code.challange.models.PixabayImage;
-import com.code.challange.viewmodel.PixabayImageDetailViewModel;
-import com.code.challange.viewmodel.PixabayImageMainViewModel;
+import com.code.challange.PixabayImageDetailViewModel;
+import com.code.challange.PixabayImageMainViewModel;
 
 import java.util.List;
 

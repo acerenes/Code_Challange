@@ -1,4 +1,4 @@
-package com.code.challange.viewmodel;
+package com.code.challange;
 
 import android.app.Dialog;
 import android.content.Context;
