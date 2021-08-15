@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Code Challenge (PAYBACK)</string>
+
+    <string name="no_results">No results!!</string>
+    <string name="API_KEY">22867335-c1f1ae0524e72ecd3ec108adc</string>
+    <string name="connection_error">Connection Problem !! Please Try Again..</string>
+    <string name="search">search..</string>
+    <string name="pixabay_url">https://pixabay.com/</string>
+</resources>
