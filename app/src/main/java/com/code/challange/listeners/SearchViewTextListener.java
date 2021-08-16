@@ -5,9 +5,15 @@ import com.code.challange.view.MainActivity;
 
 public class SearchViewTextListener implements SearchView.OnQueryTextListener {
 
+    MainActivity activity;
+
+    public SearchViewTextListener(MainActivity activity) {
+        this.activity = activity;
+    }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
-        MainActivity.getInstance().afterSearchedQuery(query);
+        activity.afterSearchedQuery(query);
         return true;
     }
 
