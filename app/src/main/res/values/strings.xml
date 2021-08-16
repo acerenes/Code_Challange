@@ -1,12 +1,16 @@
 <resources>
+    //App name
     <string name="app_name">Code Challenge (PAYBACK)</string>
+    //PixaBay API KEY
+    <string name="API_KEY">22867335-c1f1ae0524e72ecd3ec108adc</string>
 
     <string name="no_results">No results!!</string>
-    <string name="API_KEY">22867335-c1f1ae0524e72ecd3ec108adc</string>
     <string name="connection_error">Connection Problem !! Please Try Again..</string>
     <string name="search">search..</string>
     <string name="pixabay_url">https://pixabay.com/</string>
     <string name="image_intent">IMAGE</string>
+
+    //Dialog Box
     <string name="yes_dialog">Yes,show details!</string>
     <string name="sure_dialog">Are you sure?</string>
     <string name="no_dialog">No, go back!</string>

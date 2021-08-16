@@ -14,6 +14,7 @@ public class PixabayImageMainViewModel extends BaseObservable {
 
     private PixabayImage pixabayImage;
 
+    //MainActivity ViewModel Class
     public PixabayImageMainViewModel(PixabayImage pixabayImage) {
         this.pixabayImage = pixabayImage;
     }
@@ -32,6 +33,7 @@ public class PixabayImageMainViewModel extends BaseObservable {
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
+        //Here, we load our image and define our imageview
         Glide.with(view.getContext())
                 .load(imageUrl)
                 .placeholder(R.drawable.photos)

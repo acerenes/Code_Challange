@@ -17,6 +17,7 @@ public class PixabayImageDetailViewModel extends BaseObservable {
     private PixabayImage pixabayImage;
     private Context context;
 
+    //DetailActivity ViewModel Class
     public PixabayImageDetailViewModel(PixabayImage pixabayImage, Context context) {
         this.pixabayImage = pixabayImage;
         this.context = context;
@@ -47,10 +48,12 @@ public class PixabayImageDetailViewModel extends BaseObservable {
     }
 
     public View.OnClickListener openDetails() {
+        //Click cardview item listener
         return this::createDialogBox;
     }
 
     private void startActivity(View v) {
+        //User wants to open details.
         Intent i = new Intent(v.getContext(), DetailActivity.class);
         String serialized = new Gson().toJson(pixabayImage);
         i.putExtra(context.getString(R.string.image_intent), serialized);
@@ -58,6 +61,7 @@ public class PixabayImageDetailViewModel extends BaseObservable {
     }
 
     private void createDialogBox(View v) {
+        //Custom dialog box to ask user if he/she is sure to open activity or not.
         new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(context.getString(R.string.sure_dialog))
                 .setConfirmText(context.getString(R.string.yes_dialog))

@@ -1,6 +1,5 @@
 package com.code.challange.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private String searchedQuery = "fruits";
     private MenuItem menuItem;
     private final Context mainContext = this;
-    private static MainActivity instance;
 
     //injecting retrofit
     @Inject
@@ -59,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        instance = this;
         injectDagger();
         initView();
         setSupportActionBar(toolbar);
@@ -69,21 +65,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void injectDagger() {
+        //Inject dagger here to be able to use retrofit instance.
         ((PixabayApplication) getApplication()).getNetComponent().inject(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //To show search icon on the menu, we define it here.
         getMenuInflater().inflate(R.menu.activity_main_menu, menu);
         menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
-        SearchViewTextListener searchViewTextListener = new SearchViewTextListener();
+        SearchViewTextListener searchViewTextListener = new SearchViewTextListener(MainActivity.this);
         searchView.setOnQueryTextListener(searchViewTextListener);
         return true;
-    }
-
-    public static MainActivity getInstance() {
-        return instance;
     }
 
     public void afterSearchedQuery(String query){
@@ -97,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
+        //spanCount=3 --> shows how many elements will be in each row.
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(mLayoutManager);
         pixabayImageLists = new ArrayList<>();
@@ -106,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initLoadMoreScrollListener(GridLayoutManager mLayoutManager) {
+        //init this listener to be able to get images 24 by 24.
+
         loadMoreScrollListener = new LoadMoreScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int page) {
@@ -117,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        //init all components to be able to use them.
         recyclerView = findViewById(R.id.activity_main_item_list_recycler);
         toolbar = findViewById(R.id.activity_main_toolbar);
         loadMoreProgressBar = findViewById(R.id.activity_main_progress);
@@ -126,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
     private void loadImages(int page, String searchedQuery){
         PixaBayApi pixaBayApi = retrofit.create(PixaBayApi.class);
 
-        pixaBayApi.getImageResults(getString(R.string.API_KEY), searchedQuery, page, 24).enqueue(new Callback<PixabayImageList>() {
+        //perPage=24 --> shows how many elements will be searched on each request.
+        pixaBayApi.getSearchedQueryResults(getString(R.string.API_KEY), searchedQuery, page, 24).enqueue(new Callback<PixabayImageList>() {
             @Override
             public void onResponse(Call<PixabayImageList> call, Response<PixabayImageList> response) {
                 if (response.isSuccessful())
@@ -139,12 +138,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PixabayImageList> call, Throwable t) {
                 loadMoreProgressBar.stop();
-                Toast.makeText(mainContext, mainContext.getString(R.string.connection_error),Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainContext, mainContext.getString(R.string.connection_error),Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void addImagesToList(PixabayImageList imageList) {
+        //We add all images to the list before send it to the adapter.
         loadMoreProgressBar.stop();
         int position = pixabayImageLists.size();
         pixabayImageLists.addAll(imageList.getHits());
@@ -157,8 +157,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void emptyImageList() {
+        //We have to empty all list before search new word not to show old results.
+        int lastSize = pixabayImageLists.size();
         pixabayImageLists.clear();
         loadMoreScrollListener.resetCurrentPage();
-        imageListAdapter.notifyDataSetChanged();
+        imageListAdapter.notifyItemRangeRemoved(0,lastSize);
     }
 }

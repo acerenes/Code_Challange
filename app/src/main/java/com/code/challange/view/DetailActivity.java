@@ -26,10 +26,12 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setViewModel() {
+        //We set image to PixabayImageDetailViewModel to do view jobs in DetailActivity.
         activityDetailsBinding.setViewmodelDetail(new PixabayImageDetailViewModel(image, DetailActivity.this));
     }
 
     private void initImage() {
+        //We get our image object from json to bind it to the PixabayImageDetailViewModel.
         image = new Gson().fromJson(getIntent().getStringExtra(getString(R.string.image_intent)), PixabayImage.class);
     }
 }
